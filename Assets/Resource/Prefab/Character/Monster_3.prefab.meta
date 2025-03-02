@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 35d0970cf51c34f4c99ce5ec9e84a738
+timeCreated: 1476449801
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 74035
+  packageName: Dark Monsters Mega Pack
+  packageVersion: 1.0.0
+  assetPath: Assets/Resource/Prefab/Monster_3.prefab
+  uploadId: 181912
