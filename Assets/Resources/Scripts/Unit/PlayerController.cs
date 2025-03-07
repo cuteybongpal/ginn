@@ -22,33 +22,45 @@ public class PlayerController : MonoBehaviour
         {
             if (currentDir == -Vector2Int.up)
                 return;
-            currentDir = Vector2Int.up;
-            if (StageManager.Instance.PlayerMove(currentDir, CurrentPos))
+            
+            if (StageManager.Instance.PlayerMove(Vector2Int.up,CurrentPos))
+            {
                 transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                currentDir = Vector2Int.up;
+            }
         }
         if (Input.GetKey(KeyCode.S))
         {
             if (currentDir == -Vector2Int.down)
                 return;
-            currentDir = Vector2Int.down;
-            if(StageManager.Instance.PlayerMove(currentDir, CurrentPos))
+            
+            if(StageManager.Instance.PlayerMove(Vector2Int.down, CurrentPos))
+            {
                 transform.rotation = Quaternion.Euler(0f, 0f, 180f);
+                currentDir = Vector2Int.down;
+            }
         }
         if (Input.GetKey(KeyCode.D))
         {
             if (currentDir == -Vector2Int.right)
                 return;
-            currentDir = Vector2Int.right;
-            if(StageManager.Instance.PlayerMove(currentDir, CurrentPos))
+
+            if(StageManager.Instance.PlayerMove(Vector2Int.right, CurrentPos))
+            {
+                currentDir = Vector2Int.right;
                 transform.rotation = Quaternion.Euler(0f, 0f, -90f);
+            }
         }
         if (Input.GetKey(KeyCode.A))
         {
             if (currentDir == -Vector2Int.left)
                 return;
-            currentDir = Vector2Int.left;
-            if(StageManager.Instance.PlayerMove(currentDir, CurrentPos))
+
+            if(StageManager.Instance.PlayerMove(Vector2Int.left, CurrentPos))
+            {
+                currentDir = Vector2Int.left;
                 transform.rotation = Quaternion.Euler(0f, 0f, 90f);
+            }
         }
     }
     private void LateUpdate()
@@ -56,3 +68,4 @@ public class PlayerController : MonoBehaviour
         Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
     }
 }
+

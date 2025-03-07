@@ -8,17 +8,14 @@ public class Tile : MonoBehaviour
         Normal,
         PreCured,
         Blocked,
-        Corrupted,
         Cured,
     }
     public TileType tiletype;
 
-    public bool IsCorrupted;
     public bool IsCured;
 
     public GameObject CuredTile;
     public GameObject BlockedTile;
-    public GameObject CorruptedTile;
 
     public Vector2Int Pos;
 
@@ -31,32 +28,20 @@ public class Tile : MonoBehaviour
             {
                 case TileType.Cured:
                     IsCured = true;
-                    IsCorrupted = false;
 
                     CuredTile.SetActive(true);
-                    CorruptedTile.SetActive(false);
                     BlockedTile.SetActive(false);
 
                     Color color1 = CuredTile.GetComponent<SpriteRenderer>().color;
-                    color1.a = 0.5f;
+                    color1.a = 1f;
                     CuredTile.GetComponent<SpriteRenderer>().color = color1;
                     break;
                 case TileType.Blocked:
                     CuredTile.SetActive(false);
-                    CorruptedTile.SetActive(false);
                     BlockedTile.SetActive(true);
-                    break;
-                case TileType.Corrupted:
-                    IsCured = false;
-                    IsCorrupted = true;
-
-                    CuredTile.SetActive(false);
-                    CorruptedTile.SetActive(true);
-                    BlockedTile.SetActive(false);
                     break;
                 case TileType.PreCured:
                     CuredTile.SetActive(true);
-                    CorruptedTile.SetActive(false);
                     BlockedTile.SetActive(false);
                     Color color2 = CuredTile.GetComponent<SpriteRenderer>().color;
                     color2.a = 0.5f;
@@ -64,8 +49,9 @@ public class Tile : MonoBehaviour
                     break;
                 case TileType.Normal:
                     CuredTile.SetActive(false);
-                    CorruptedTile.SetActive(false);
                     BlockedTile.SetActive(false);
+                    if (IsCured)
+                        TileTypes = TileType.Cured;
                     break;
             }
         }

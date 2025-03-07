@@ -24,6 +24,19 @@ public class StageManager : MonoBehaviour
         }
     }
 
+    private int preCuredArea = 0;
+
+    public int PreCuredArea
+    {
+        get { return preCuredArea; }
+        set
+        {
+            
+            
+                preCuredArea = value;
+        }
+    }
+
 
     public bool PlayerMove(Vector2Int dir, Vector2Int originPos)
     {
@@ -40,7 +53,11 @@ public class StageManager : MonoBehaviour
 
         playerMove = StartCoroutine(Move(originPos, originPos + dir));
         if (tile.TileTypes == Tile.TileType.PreCured)
+        {
+            Map.Add(tile, dir);
             Map.FillArea();
+
+        }
         else
             Map.Add(tile, dir);
 
