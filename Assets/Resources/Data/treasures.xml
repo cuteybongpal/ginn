@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfTreasureData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <TreasureData>
+    <SpriteName>shoe</SpriteName>
+    <Worth>1000</Worth>
+    <Weight>1</Weight>
+    <Name>가벼운 착지 5 네더라이트 신발</Name>
+    <IsMainTreasure>true</IsMainTreasure>
+  </TreasureData>
+	
+  <TreasureData>
+    <SpriteName>armor</SpriteName>
+    <Worth>2000</Worth>
+    <Weight>5</Weight>
+    <Name>보호 4 네더라이트갑옷</Name>
+    <IsMainTreasure>true</IsMainTreasure>
+  </TreasureData>
+	
+  <TreasureData>
+    <SpriteName>sword</SpriteName>
+    <Worth>1500</Worth>
+    <Weight>3</Weight>
+    <Name>날카로움 5 네더라이트 검</Name>
+    <IsMainTreasure>true</IsMainTreasure>
+  </TreasureData>
+	
+  <TreasureData>
+    <SpriteName>pants</SpriteName>
+    <Worth>1500</Worth>
+    <Weight>3</Weight>
+    <Name>신속한 잠행3 네더라이트 바지</Name>
+    <IsMainTreasure>true</IsMainTreasure>
+  </TreasureData>
+	
+  <TreasureData>
+    <SpriteName>helmet</SpriteName>
+    <Worth>1000</Worth>
+    <Weight>2</Weight>
+    <Name>친수성3 네더라이트 헬멧</Name>
+    <IsMainTreasure>true</IsMainTreasure>
+  </TreasureData>
+	
+  <TreasureData>
+    <SpriteName>emerald</SpriteName>
+    <Worth>500</Worth>
+    <Weight>4</Weight>
+    <Name>레전드 에메랄드</Name>
+    <IsMainTreasure>false</IsMainTreasure>
+  </TreasureData>
+	
+  <TreasureData>
+    <SpriteName>apple</SpriteName>
+    <Worth>800</Worth>
+    <Weight>1</Weight>
+    <Name>마법이 부여된 황금사과</Name>
+    <IsMainTreasure>false</IsMainTreasure>
+  </TreasureData>
+	
+  <TreasureData>
+    <SpriteName>ingot</SpriteName>
+    <Worth>200</Worth>
+    <Weight>2</Weight>
+    <Name>철골렘의 유품</Name>
+    <IsMainTreasure>false</IsMainTreasure>
+  </TreasureData>
+	
+  <TreasureData>
+    <SpriteName>cider</SpriteName>
+    <Worth>100</Worth>
+    <Weight>1</Weight>
+    <Name>청량감이 느껴지는 레전드 사이다</Name>
+    <IsMainTreasure>false</IsMainTreasure>
+  </TreasureData>
+	
+  <TreasureData>
+    <SpriteName>axe</SpriteName>
+    <Worth>1500</Worth>
+    <Weight>4</Weight>
+    <Name>효율5 네더라이트 도끼</Name>
+    <IsMainTreasure>false</IsMainTreasure>
+  </TreasureData>
+	
+  <TreasureData>
+    <SpriteName>bow</SpriteName>
+    <Worth>500</Worth>
+    <Weight>2</Weight>
+    <Name>힘5 활</Name>
+    <IsMainTreasure>false</IsMainTreasure>
+  </TreasureData>
+	
+</ArrayOfTreasureData>
