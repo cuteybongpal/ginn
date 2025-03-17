@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2174309655961072547}
   - component: {fileID: 4223074094209345260}
   - component: {fileID: 8561149462724242050}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpearD (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,9 +96,11 @@ GameObject:
   - component: {fileID: 7651031911053347410}
   - component: {fileID: 7953137377710383105}
   - component: {fileID: 4395638549781442000}
-  m_Layer: 0
+  - component: {fileID: 4435505886214386418}
+  - component: {fileID: 5862668290683415885}
+  m_Layer: 6
   m_Name: SpikeTrapD
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -211,6 +213,123 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CoolDown: 0
+--- !u!65 &4435505886214386418
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597304422359966170}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.0000005, y: 2.1180954, z: 2.0000007}
+  m_Center: {x: 0, y: 1.2026064, z: 0.00000011920929}
+--- !u!82 &5862668290683415885
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597304422359966170}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 180f35aef2ea2654086bcbb52d58ec0b, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.413
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &2012799695280681747
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,7 +341,7 @@ GameObject:
   - component: {fileID: 7152731926010811229}
   - component: {fileID: 6579522370740369517}
   - component: {fileID: 8995234483187886182}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpearD (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -305,7 +424,7 @@ GameObject:
   - component: {fileID: 5104359493749166670}
   - component: {fileID: 2450170497887909926}
   - component: {fileID: 7060923448289166244}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpearD (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -388,7 +507,7 @@ GameObject:
   - component: {fileID: 5235535136861991840}
   - component: {fileID: 7379283052182080138}
   - component: {fileID: 3793734945066654162}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpearD (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -471,7 +590,7 @@ GameObject:
   - component: {fileID: 3949577597894929351}
   - component: {fileID: 8018026832322997567}
   - component: {fileID: 9156483091448217837}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpearD (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -554,7 +673,7 @@ GameObject:
   - component: {fileID: 9201375422442651039}
   - component: {fileID: 101557508581274324}
   - component: {fileID: 7409435430349773764}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpearD (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -637,7 +756,7 @@ GameObject:
   - component: {fileID: 4038008748728966060}
   - component: {fileID: 8771552724654924462}
   - component: {fileID: 5677002183953896614}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpearD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -720,7 +839,7 @@ GameObject:
   - component: {fileID: 5888080108020505121}
   - component: {fileID: 3689516768514150018}
   - component: {fileID: 1782593457936679018}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpearD (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -803,7 +922,7 @@ GameObject:
   - component: {fileID: 8884845466560589454}
   - component: {fileID: 4371914164878215823}
   - component: {fileID: 1419750310083500676}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpearD (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

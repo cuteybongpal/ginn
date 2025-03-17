@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.UIElements;
+using static UnityEngine.ParticleSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,7 +21,8 @@ public class PlayerController : MonoBehaviour
             if (isLobby)
                 return;
             UI_PlayerUI ui = UIManager.Instance.CurrentMainUI as UI_PlayerUI;
-
+            if (ui == null)
+                return;
             ui.SetHPBar(currentHp);
             if (currentHp <= 0)
                 GameManager.Instance.GameOver();
@@ -31,6 +34,7 @@ public class PlayerController : MonoBehaviour
 
     public bool isLobby;
     public bool isInvisible;
+    public bool isPlayerInvincible;
     public int CurrentOxygenGage {  
         get { return currentOxygenGage; }
         set
@@ -47,12 +51,10 @@ public class PlayerController : MonoBehaviour
     }
 
     Rigidbody rb;
-
-    public GameObject Arrow;
     bool isCanJump = true;
     bool isCanAttack = true;
-
-
+    public Collider AttackCollider;
+    ParticleSystem particle;
     public float AttackCoolDown;
     public enum PlayerState
     {
@@ -64,6 +66,15 @@ public class PlayerController : MonoBehaviour
 
     PlayerState state = PlayerState.Idle;
     Animator anim;
+    /// <summary>
+    /// 0 : 발걸음
+    /// 1 : 화살 쏘기
+    /// 2 : 점프
+    /// 3 : 데미지 입음
+    /// </summary>
+    AudioSource[] audioSources;
+    public AudioClip[] Clips;
+
 
     public PlayerState State
     {
@@ -96,6 +107,12 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         CurrentOxygenGage = GameManager.Instance.PlayerMaxOxygenGage;
         CurrentHp = MaxHp;
+        audioSources = GetComponents<AudioSource>();
+        audioSources[0].clip = Clips[0];
+        audioSources[1].clip = Clips[1];
+        audioSources[2].clip = Clips[2];
+        audioSources[3].clip = Clips[3];
+        particle = GetComponentInChildren<ParticleSystem>();
         if (!isLobby)
             StartCoroutine(ReduceCurrentOxygen());
     }
@@ -182,8 +199,15 @@ public class PlayerController : MonoBehaviour
             return;
         if (!isCanAttack)
             return;
-        anim.Play("BowShot");
+        anim.Play("Attack");
         StartCoroutine(CoolDown());
+        StartCoroutine(OnOffAttackCollider());
+    }
+    IEnumerator OnOffAttackCollider()
+    {
+        AttackCollider.enabled = false;
+        yield return new WaitForSeconds(1);
+        AttackCollider.enabled = true;
     }
     IEnumerator CoolDown()
     {
@@ -193,21 +217,28 @@ public class PlayerController : MonoBehaviour
     }
     public void Damaged()
     {
+        if (isPlayerInvincible)
+            return;
         if (CurrentHp <= 0)
             return;
+        particle.Play();
         CurrentHp -= 1;
+        audioSources[3].Play();
     }
 
     void Jump()
     {
         anim.Play("Jump");
+        audioSources[2].Play();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Trap") && !other.CompareTag("Monster"))
-            return;
-
+        {
+            if (!(other.gameObject.layer == LayerMask.NameToLayer("Monster")))
+                return;
+        }
         Damaged();
     }
     private void OnTriggerStay(Collider other)
@@ -221,19 +252,9 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Ground"))
             isCanJump = false;
     }
-    void ShotArrow()
+
+    void FootStep()
     {
-        GameObject go = Instantiate(Arrow);
-        Arrow arrow = go.GetComponent<Arrow>();
-        float angleZ = Mathf.Cos(transform.rotation.eulerAngles.y * Mathf.Deg2Rad);
-        float angleX = Mathf.Sin(transform.rotation.eulerAngles.y * Mathf.Deg2Rad);
-        Vector3 dir = new Vector3(angleX, 0, angleZ);
-
-        go.transform.position = transform.position + Vector3.up * 1.5f + dir * .7f;
-
-
-
-        
-        arrow.Init(dir);
+        audioSources[0].Play();
     }
 }

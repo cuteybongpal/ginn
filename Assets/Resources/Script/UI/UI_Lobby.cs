@@ -20,6 +20,7 @@ public class UI_Lobby : UI_Base
         {
             Instantiate(StorePrefab);
         });
+        SetMoneyText(GameManager.Instance.CurrentMoney);
 
     }
     public void SetMoneyText(int money)

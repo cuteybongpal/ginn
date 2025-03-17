@@ -23,4 +23,8 @@ public class Arrow : MonoBehaviour
         Debug.Log("적들에게 닿음!");
         Destroy(gameObject);
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        Destroy(gameObject);
+    }
 }

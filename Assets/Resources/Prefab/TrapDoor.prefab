@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2725664380476183140}
   - component: {fileID: 2781956591618871272}
   - component: {fileID: 7935075663941355027}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TrapDoorLD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3198301302487373769}
   - component: {fileID: 3244824787429652758}
-  m_Layer: 0
+  - component: {fileID: 1192191211158777791}
+  - component: {fileID: 6625706485490095489}
+  m_Layer: 6
   m_Name: TrapDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,6 +140,39 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1192191211158777791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2966736262799545616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6b240679ebcbaf45b2a4a017bbd343d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &6625706485490095489
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2966736262799545616}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.006906, y: 0.13653678, z: 1.971038}
+  m_Center: {x: 0.005343199, y: -0.009854287, z: -0.017860353}
 --- !u!1 &8415860678844049021
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,7 +184,7 @@ GameObject:
   - component: {fileID: 6039178447692579691}
   - component: {fileID: 3470615946083568678}
   - component: {fileID: 3656648811488143775}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TrapDoorRD
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,14 +16,20 @@ public class UI_Shop : UI_Popup
         {
             Hide();
         });
+        UpdateProduct();
+    }
+    public void UpdateProduct()
+    {
         List<Product> products = DataManager.Instance.Products;
+        foreach (Transform t in LayoutGroup.transform)
+        {
+            Destroy(t.gameObject);
+        }
         for (int i = 0; i < products.Count; i++)
         {
-            if (products[i].IsBuy)
-                continue;
             GameObject go = Instantiate(UI_ProductInfoPrefab);
             go.transform.parent = LayoutGroup.transform;
-            go.GetComponent<UI_ProductInfo>().Initialize(products[i]);
+            go.GetComponent<UI_ProductInfo>().Initialize(products[i], this);
         }
     }
     

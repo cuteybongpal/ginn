@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Treasure
+public class Treasure : StorableItem
 {
     public Sprite Sprite;
     public string Name;
@@ -31,5 +31,10 @@ public class Treasure
         this.Weight = origin.Weight;
         this.IsMainTreasure= isMainTreasure;
         this.Sprite = sprite;
+    }
+
+    public void Store()
+    {
+        GameManager.Instance.Add(this);
     }
 }

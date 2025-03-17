@@ -11,6 +11,7 @@ public class UI_Adjustment : UI_Popup
     public Transform Content;
     void Start()
     {
+        Close.gameObject.SetActive(false);
         Init();
         StartCoroutine(Adjustment());
 
@@ -22,8 +23,11 @@ public class UI_Adjustment : UI_Popup
     IEnumerator Adjustment()
     {
         int addMoney = 0;
-        foreach (Treasure t in GameManager.Instance.Inventory)
+        foreach (StorableItem storable in GameManager.Instance.Inventory)
         {
+            Treasure t = storable as Treasure;
+            if (t == null)
+                continue;
             addMoney += t.Worth;
             UI_Treasure ui_Treasure = Instantiate(InventoryTreasure).GetComponent<UI_Treasure>();
             ui_Treasure.transform.parent = Content;
@@ -34,5 +38,6 @@ public class UI_Adjustment : UI_Popup
         }
         GameManager.Instance.Inventory.Clear();
         GameManager.Instance.CurrentMoney += addMoney;
+        Close.gameObject.SetActive(true);
     }
 }

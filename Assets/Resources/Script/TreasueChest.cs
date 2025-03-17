@@ -10,11 +10,19 @@ public class TreasueChest : MonoBehaviour
     Animator anim;
 
     public int ChestNumber;
-
+    public AudioClip[] Clips;
+    /// <summary>
+    /// 0 : ¿­±â
+    /// 1 : ´Ý±â
+    /// </summary>
+    AudioSource[] sources;
     void Start()
     {
         anim = GetComponent<Animator>();
         treasure = DataManager.Instance.stageTreasures[GameManager.Instance.CurrentStage][ChestNumber];
+        sources = GetComponents<AudioSource>();
+        sources[0].clip = Clips[0];
+        sources[1].clip = Clips[1];
         if ( treasure == null)
         {
             Open();
@@ -50,18 +58,20 @@ public class TreasueChest : MonoBehaviour
 
         anim.SetBool("open", true);
         anim.SetBool("close", false);
+        sources[0].Play();
     }
     public void Close()
     {
 
         anim.SetBool("open", false);
         anim.SetBool("close", true);
+        sources[1].Play();
     }
 
     public void Take()
     {
         UI_PlayerUI ui = UIManager.Instance.CurrentMainUI as UI_PlayerUI;
-        ui.TakeTreasure(treasure);
+        ui.SetInventoryImage(treasure.Sprite);
         treasure = null;
         DataManager.Instance.stageTreasures[GameManager.Instance.CurrentStage][ChestNumber] = null;
     }

@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
     public static GameManager Instance {  get { return instance; } }
     
-    public List<Treasure> Inventory = new List<Treasure>();
+    public List<StorableItem> Inventory = new List<StorableItem>();
 
     public GameObject UI_Warning;
 
@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
                 GameStart();
         }
     }
+    public int PlayerDamage = 1;
 
 
     private void Awake()
@@ -65,7 +66,7 @@ public class GameManager : MonoBehaviour
         Debug.Log(Inventory.Count);
     }
 
-    public bool Add(Treasure treasure)
+    public bool Add(StorableItem storable)
     {
         int weight = 0;
         Debug.Log(Inventory.Count);
@@ -76,22 +77,47 @@ public class GameManager : MonoBehaviour
             return false;
         }
 
-        foreach (Treasure t in Inventory)
+        foreach (StorableItem t in Inventory)
         {
+            Treasure treasure = t as Treasure;
+            if (treasure == null)
+                continue;
+            weight += treasure.Weight;
+        }
+        if (storable is Treasure)
+        {
+            Treasure t = storable as Treasure;
             weight += t.Weight;
-            Debug.Log(weight);
         }
         if (weight > MaxStorableWeight)
         {
             UI_warning ui = Instantiate(UI_Warning).GetComponent<UI_warning>();
-            ui.Initialize("현재 가방으로는 무게를 감당할 수 없습니다.");
-            return false;
+            ui.Initialize("너무 무거워요 ㅠㅠ");
+            PlayerController player = FindAnyObjectByType<PlayerController>();
+            player.Speed -= 3;
         }
 
-        Inventory.Add(treasure);
+        Inventory.Add(storable);
         return true;
     }
-
+    public void Remove(int index)
+    {
+        UI_PlayerUI ui = UIManager.Instance.CurrentMainUI as UI_PlayerUI;
+        for (int i = 0; i < Inventory.Count; i++)
+        {
+            ui.UseItem(i);
+        }
+        Inventory.RemoveAt(index);
+        for (int i = 0; i < Inventory.Count; i++)
+        {
+            Treasure t = Inventory[i] as Treasure;
+            Item item = Inventory[i] as Item;
+            if (t != null)
+                ui.SetInventoryImage(t.Sprite);
+            else
+                ui.SetInventoryImage(item.ItemSprite);
+        }
+    }
     public void Escape()
     {
         

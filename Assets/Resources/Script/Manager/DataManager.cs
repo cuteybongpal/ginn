@@ -103,7 +103,7 @@ public class DataManager
     {
         GetTreasures();
 
-        Products.Add(new Product("가방(중)", (product) =>
+        Products.Add(new Product("가방", (product) =>
         {
             if (product.IsBuy)
                 return false;
@@ -113,76 +113,74 @@ public class DataManager
             if (GameManager.Instance.CurrentMoney < product.Price)
                 return false;
             GameManager.Instance.CurrentMoney -= product.Price;
-            GameManager.Instance.MaxStorableWeight = 15;
-            GameManager.Instance.MaxContainTreauseCount = 6;
-            product.IsBuy = true;
+            GameManager.Instance.MaxStorableWeight += 5;
+            GameManager.Instance.MaxContainTreauseCount += 2;
+            product.Price += 500;
+            product.UpGrade++;
+            switch (product.UpGrade)
+            {
+                case 1:
+                    product.Sprite = ResourceManager.GetProductSprite("가방_대");
+                    break;
+                case 2:
+                    product.IsBuy = true;
+                    break;
+            }
             return true;
         }, 1500, ResourceManager.GetProductSprite("가방_중")));
 
-        Products.Add(new Product("가방(대)", (product) =>
+        Products.Add(new Product("산소통", (product) =>
         {
             if (product.IsBuy)
                 return false;
-            if (GameManager.Instance.MaxStorableWeight > 20)
+            if (GameManager.Instance.MaxStorableWeight > 15)
                 return false;
 
             if (GameManager.Instance.CurrentMoney < product.Price)
                 return false;
-
             GameManager.Instance.CurrentMoney -= product.Price;
-            GameManager.Instance.MaxStorableWeight = 20;
-            GameManager.Instance.MaxContainTreauseCount = 8;
-            product.IsBuy = true;
-
+            GameManager.Instance.PlayerMaxOxygenGage += 50;
+            product.Price += 200;
+            product.UpGrade++;
+            switch (product.UpGrade)
+            {
+                case 1:
+                    product.Sprite = ResourceManager.GetProductSprite("산소통_중");
+                    break;
+                case 2:
+                    product.Sprite = ResourceManager.GetProductSprite("산소통_대");
+                    break;
+                case 3:
+                    product.IsBuy = true;
+                    break;
+            }
             return true;
-        }, 2000, ResourceManager.GetProductSprite("가방_대")));
+        }, 1000, ResourceManager.GetProductSprite("산소통_소")));
 
-        Products.Add(new Product("산소통(소)", (product) =>
+        Products.Add(new Product("마체테", (product) =>
         {
             if (product.IsBuy)
                 return false;
-            if (GameManager.Instance.PlayerMaxOxygenGage > 150)
+            if (GameManager.Instance.MaxStorableWeight > 15)
                 return false;
 
             if (GameManager.Instance.CurrentMoney < product.Price)
                 return false;
-
             GameManager.Instance.CurrentMoney -= product.Price;
-            GameManager.Instance.PlayerMaxOxygenGage = 150;
-            product.IsBuy = true;
+            GameManager.Instance.PlayerDamage++;
+            product.Price += 500;
+            product.UpGrade++;
+            switch (product.UpGrade)
+            {
+                case 1:
+                    ResourceManager.GetProductSprite("마체테++");
+                    break;
+                case 2:
+                    product.IsBuy = true;
+                    break;
+            }
             return true;
-        }, 500, ResourceManager.GetProductSprite("산소통_소")));
-
-        Products.Add(new Product("산소통(중)", (product) =>
-        {
-            if (product.IsBuy)
-                return false;
-            if (GameManager.Instance.PlayerMaxOxygenGage > 200)
-                return false;
-
-            if (GameManager.Instance.CurrentMoney < product.Price)
-                return false;
-
-            GameManager.Instance.CurrentMoney -= product.Price;
-            GameManager.Instance.PlayerMaxOxygenGage = 200;
-            product.IsBuy = true;
-            return true;
-        }, 1000, ResourceManager.GetProductSprite("산소통_중")));
-
-        Products.Add(new Product("산소통(대)", (product) =>
-        {
-            if (product.IsBuy)
-                return false;
-            if (GameManager.Instance.PlayerMaxOxygenGage > 250)
-                return false;
-            if (GameManager.Instance.CurrentMoney < product.Price)
-                return false;
-
-            GameManager.Instance.CurrentMoney -= product.Price;
-            GameManager.Instance.PlayerMaxOxygenGage = 250;
-            product.IsBuy = true;
-            return true;
-        }, 1500, ResourceManager.GetProductSprite("산소통_대")));
+        }, 1500, ResourceManager.GetProductSprite("마체테+")));
     }
 }
 public class GameData
@@ -224,7 +222,7 @@ public class Product
 
     public bool IsBuy;
     public Sprite Sprite;
-
+    public int UpGrade;
     public Product()
     {
 

@@ -117,4 +117,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 812438721156118488d08724eb7adfcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: c840977d2e6275f44b68821c33c4b36f, type: 3}
   Arrow: {fileID: 6809470704957741482, guid: 69dcf2b3705da9a4d9f5fca531007205, type: 3}

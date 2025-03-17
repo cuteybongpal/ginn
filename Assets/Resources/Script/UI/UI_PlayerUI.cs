@@ -9,11 +9,14 @@ public class UI_PlayerUI : UI_Base
     public GameObject[] Hps;
     public Slider OxygenSlider;
     public Text OxygenText;
+    public Text WeightText;
     public Image Inventory;
 
     public GameObject InventoryItemPrefab;
     public Image[] InventoryImages;
+    Button[] buttons;
 
+    public Collider AttackCollider;
     protected override void Start()
     {
         base.Start();
@@ -22,13 +25,48 @@ public class UI_PlayerUI : UI_Base
         SetOxygenGageValue(GameManager.Instance.PlayerMaxOxygenGage);
 
         InventoryImages = new Image[GameManager.Instance.MaxContainTreauseCount];
+        buttons = new Button[GameManager.Instance.MaxContainTreauseCount];
         for (int i = 0; i < GameManager.Instance.MaxContainTreauseCount; i++)
         {
             GameObject go = Instantiate(InventoryItemPrefab);
             go.transform.SetParent(Inventory.transform);
             InventoryImages[i] = go.transform.GetChild(0).GetComponent<Image>();
+            buttons[i] = go.transform.GetComponent<Button>();
+        }
+
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            int a = i;
+            Button button = buttons[i];
+            if (button == null)
+                Debug.Log("button is null");
+
+            button.onClick.AddListener(() =>
+            {
+                if (GameManager.Instance.Inventory.Count <= a)
+                    return;
+                Item item = GameManager.Instance.Inventory[a] as Item;
+                if (item == null)
+                    return;
+                item.UseItem();
+                GameManager.Instance.Remove(a);
+            });
         }
         StartCoroutine(A());
+        WeightText.text = $"0 / {GameManager.Instance.MaxStorableWeight}kg";
+        foreach (StorableItem item in GameManager.Instance.Inventory)
+        {
+            Treasure t = item as Treasure;
+            Item item1 = item as Item; 
+            if (t == null)
+            {
+                SetInventoryImage(t.Sprite);
+            }
+            else
+            {
+                SetInventoryImage(item1.ItemSprite);
+            }
+        }
     }
 
     IEnumerator A()
@@ -53,9 +91,9 @@ public class UI_PlayerUI : UI_Base
         OxygenSlider.value = value;
         OxygenText.text = $"현재 남은 산소량 : {value}";
     }
-    public void TakeTreasure(Treasure treasure)
+    public void SetInventoryImage(Sprite sprite)
     {
-        if (treasure == null) return;
+        if (sprite == null) return;
 
         Image image = null;
 
@@ -67,7 +105,23 @@ public class UI_PlayerUI : UI_Base
                 break;
             }
         }
-        if (image != null)
-            image.sprite = treasure.Sprite;
+        int currentWeight = 0;
+
+        foreach (StorableItem item in GameManager.Instance.Inventory)
+        {
+            Treasure t = item as Treasure;
+            if (t == null)
+                continue;
+            currentWeight += t.Weight;
+        }
+        if (currentWeight > GameManager.Instance.MaxStorableWeight)
+            WeightText.color = Color.red;
+        WeightText.text = $"{currentWeight} / {GameManager.Instance.MaxStorableWeight}kg";
+        image.sprite = sprite;
     }
+    public void UseItem(int index)
+    {
+        InventoryImages[index].sprite = null;
+    }
+    
 }

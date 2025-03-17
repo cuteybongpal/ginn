@@ -6,11 +6,13 @@ public class Spike : Trap
 {
     public float CoolDown;
     BoxCollider Collider;
+    AudioSource audioSource;
 
     protected override void Start()
     {
         base.Start();
         Collider = GetComponent<BoxCollider>();
+        audioSource = GetComponent<AudioSource>();
         DeActivate();
         StartCoroutine(TrapLoop());
     }
@@ -28,6 +30,7 @@ public class Spike : Trap
     public override void Activate()
     {
         animator.SetTrigger("open");
+        audioSource.Play();
         Collider.enabled = true;
     }
     public override void DeActivate()

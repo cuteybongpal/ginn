@@ -1,0 +1,136 @@
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+using static UnityEngine.ParticleSystem;
+
+public class GolemController : MonoBehaviour
+{
+    public int MaxHp;
+    int currentHp;
+
+    public float Speed;
+
+    public PlayerController Player;
+    Rigidbody rb;
+    Animator anim;
+    public float Distance;
+    public Collider AttackCollider;
+    ParticleSystem particle;
+    public enum MonsterState
+    {
+        Idle,
+        Walk,
+        Attack
+    }
+    bool CanAttack = true;
+    MonsterState state = MonsterState.Idle;
+    MonsterState State 
+    {
+        get { return state; }
+        set
+        {
+            state = value;
+            switch (state)
+            {
+                case MonsterState.Idle:
+                    Idle();
+                    break;
+                case MonsterState.Walk:
+                    Walk();
+                    break;
+                case MonsterState.Attack:
+                    Attack();
+                    break;
+            }
+        }
+    }
+
+    public int CurrentHp 
+    {
+        get { return currentHp; }
+        set
+        {
+            currentHp = value;
+            if (currentHp > MaxHp)
+                currentHp = MaxHp;
+            else if (currentHp < 0)
+                currentHp = 0;
+        }
+    }
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        anim = GetComponent<Animator>();
+        AttackCollider.enabled = false;
+        particle = GetComponentInChildren<ParticleSystem>();
+    }
+    void Update()
+    {
+        Vector2 Pos = new Vector2(transform.position.x, transform.position.z);
+        Vector2 PlayerPos = new Vector2(Player.transform.position.x, Player.transform.position.z);
+        if (Vector2.Distance(Pos, PlayerPos) <= Distance && !Player.isInvisible)
+        {
+            Vector2 dir = (PlayerPos - Pos).normalized;
+
+            float angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
+            if (Vector2.Distance(Pos, PlayerPos) <= 4 && CanAttack)
+            {
+                rb.velocity = Vector3.zero;
+                State = MonsterState.Attack;
+            }
+            else
+            {
+                State = MonsterState.Walk;
+                rb.velocity = new Vector3(dir.x, 0, dir.y) * Speed;
+            }
+
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
+            State = MonsterState.Idle;
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        
+    }
+    void Idle()
+    {
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+            return;
+        anim.Play("Idle");
+    }
+    void Walk()
+    {
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+            return;
+        anim.Play("Walk");
+    }
+    void Attack()
+    {
+        anim.Play("Attack");
+        
+        StartCoroutine(AttackCoolDown());
+    }
+    IEnumerator AttackCoolDown()
+    {
+        CanAttack = false;
+        yield return new WaitForSeconds(5);
+        CanAttack = true;
+    }
+
+    void ColliderOn()
+    {
+        StartCoroutine(Attacking());
+        particle.Play();
+    }
+    IEnumerator Attacking()
+    {
+        AttackCollider.enabled = true;
+        yield return new WaitForSeconds(.3f);
+        AttackCollider.enabled = false;
+    }
+}

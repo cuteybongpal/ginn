@@ -10,9 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8772886451453302410}
   - component: {fileID: 8430893578058225332}
-  m_Layer: 0
+  - component: {fileID: 6776763381903124593}
+  - component: {fileID: 2288713931562981605}
+  m_Layer: 6
   m_Name: SwingTrapD
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -56,6 +58,48 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &6776763381903124593
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380597433073126205}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.55, y: 4.64, z: 0.55}
+  m_Center: {x: -2, y: 0, z: 0}
+--- !u!65 &2288713931562981605
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380597433073126205}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.55, y: 4.64, z: 0.55}
+  m_Center: {x: 2, y: 0, z: 0}
 --- !u!1 &6818443341296612616
 GameObject:
   m_ObjectHideFlags: 0
@@ -67,7 +111,7 @@ GameObject:
   - component: {fileID: 3352115443088299438}
   - component: {fileID: 1625551077522885947}
   - component: {fileID: 3052314083025503228}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Pole01D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,9 +195,9 @@ GameObject:
   - component: {fileID: 5019411722469832413}
   - component: {fileID: 2882757532708500456}
   - component: {fileID: 6323189235870656288}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Blade01D
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -238,7 +282,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -255,7 +299,7 @@ GameObject:
   - component: {fileID: 2892119018054016951}
   - component: {fileID: 5227525709597715261}
   - component: {fileID: 1198051743090773874}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Pole01D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
