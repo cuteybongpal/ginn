@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static UnityEngine.ParticleSystem;
@@ -52,7 +53,7 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody rb;
     bool isCanJump = true;
-    bool isCanAttack = true;
+    public bool isCanAttack = true;
     public Collider AttackCollider;
     ParticleSystem particle;
     public float AttackCoolDown;
@@ -103,6 +104,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1;
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         CurrentOxygenGage = GameManager.Instance.PlayerMaxOxygenGage;
@@ -113,6 +115,7 @@ public class PlayerController : MonoBehaviour
         audioSources[2].clip = Clips[2];
         audioSources[3].clip = Clips[3];
         particle = GetComponentInChildren<ParticleSystem>();
+        AttackCollider.enabled = false;
         if (!isLobby)
             StartCoroutine(ReduceCurrentOxygen());
     }
@@ -127,6 +130,8 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
+        if (Time.timeScale == 0)
+            return;
         Vector3 dir = Vector3.zero;
         if (Input.GetKey(KeyCode.W))
         {
@@ -201,13 +206,16 @@ public class PlayerController : MonoBehaviour
             return;
         anim.Play("Attack");
         StartCoroutine(CoolDown());
+    }
+    void OnOff()
+    {
         StartCoroutine(OnOffAttackCollider());
     }
     IEnumerator OnOffAttackCollider()
     {
-        AttackCollider.enabled = false;
-        yield return new WaitForSeconds(1);
         AttackCollider.enabled = true;
+        yield return new WaitForSeconds(.1f);
+        AttackCollider.enabled = false;
     }
     IEnumerator CoolDown()
     {

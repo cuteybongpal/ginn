@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface StorableItem 
+public interface StorableItem : ICloneable
 {
     public void Store();
+    
 }

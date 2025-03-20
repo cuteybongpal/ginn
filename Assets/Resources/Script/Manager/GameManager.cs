@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEditor.Progress;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,7 +13,10 @@ public class GameManager : MonoBehaviour
     
     public List<StorableItem> Inventory = new List<StorableItem>();
 
+    List<StorableItem> prevInventory = new List<StorableItem>();
+
     public GameObject UI_Warning;
+    public GameObject UI_GameOver;
 
     int currentMoney = 0;
     public int CurrentMoney 
@@ -38,10 +42,10 @@ public class GameManager : MonoBehaviour
         set
         {
             currentStage = value;
-            Debug.Log(value);
-            SceneManager.LoadScene(value);
             if (value != 0)
                 GameStart();
+            Debug.Log("씬 이동");
+            SceneManager.LoadSceneAsync(value, LoadSceneMode.Single);
         }
     }
     public int PlayerDamage = 1;
@@ -59,17 +63,42 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public List<Treasure> TreasureList;
+    public List<Treasure> TreasureList = new List<Treasure>();
     public void GameStart()
     {
-        TreasureList = DataManager.Instance.stageTreasures[CurrentStage - 1];
-        Debug.Log(Inventory.Count);
+        Time.timeScale = 1;
+        TreasureList = new List<Treasure>();
+        foreach (Treasure t in DataManager.Instance.stageTreasures[CurrentStage - 1])
+        {
+            Treasure tt;
+            if (t == null)
+                tt = null;
+            else
+                tt = (Treasure)t.Clone();
+            TreasureList.Add(tt);
+        }
+        for (int i = 0; i < Inventory.Count; i++)
+        {
+            Treasure t;
+            Item it;
+            if (Inventory[i] is Treasure)
+            {
+                t = (Treasure)Inventory[i].Clone();
+                prevInventory.Add(t);
+                Debug.Log(t == null);
+            }
+            else
+            {
+                it = (Item)Inventory[i].Clone();
+                DontDestroyOnLoad(it);
+                prevInventory.Add(it);
+                Debug.Log(it == null);
+            }            
+        }
     }
-
     public bool Add(StorableItem storable)
     {
         int weight = 0;
-        Debug.Log(Inventory.Count);
         if (Inventory.Count >= MaxContainTreauseCount)
         {
             UI_warning ui = Instantiate(UI_Warning).GetComponent<UI_warning>();
@@ -94,10 +123,21 @@ public class GameManager : MonoBehaviour
             UI_warning ui = Instantiate(UI_Warning).GetComponent<UI_warning>();
             ui.Initialize("너무 무거워요 ㅠㅠ");
             PlayerController player = FindAnyObjectByType<PlayerController>();
-            player.Speed -= 3;
+            player.Speed -= 2;
         }
-
-        Inventory.Add(storable);
+        
+        if (storable is Item)
+        {
+            Item origin = (Item)storable;
+            Item item = storable.Clone() as Item;
+            DontDestroyOnLoad(item);
+            Destroy(origin.gameObject);
+            Inventory.Add(item);
+        }
+        else
+        {
+            Inventory.Add(storable);
+        }
         return true;
     }
     public void Remove(int index)
@@ -118,13 +158,20 @@ public class GameManager : MonoBehaviour
                 ui.SetInventoryImage(item.ItemSprite);
         }
     }
-    public void Escape()
-    {
-        
-    }
     public void GameOver()
     {
-        DataManager.Instance.stageTreasures[CurrentStage - 1] = TreasureList;
-        Debug.Log("게임오버");
+        List<Treasure> tList = new List<Treasure>();
+        foreach (Treasure t in TreasureList)
+        {
+            if (t == null)
+                tList.Add(null);
+            else
+                tList.Add(t.Clone() as Treasure);
+        }
+        DataManager.Instance.stageTreasures[CurrentStage - 1] = tList;
+        TreasureList.Clear();
+        Inventory = prevInventory;
+        Instantiate(UI_GameOver);
+        Time.timeScale = 0;
     }
 }

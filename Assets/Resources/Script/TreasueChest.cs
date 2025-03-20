@@ -19,7 +19,7 @@ public class TreasueChest : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
-        treasure = DataManager.Instance.stageTreasures[GameManager.Instance.CurrentStage][ChestNumber];
+        treasure = GameManager.Instance.TreasureList[ChestNumber];
         sources = GetComponents<AudioSource>();
         sources[0].clip = Clips[0];
         sources[1].clip = Clips[1];
@@ -73,6 +73,6 @@ public class TreasueChest : MonoBehaviour
         UI_PlayerUI ui = UIManager.Instance.CurrentMainUI as UI_PlayerUI;
         ui.SetInventoryImage(treasure.Sprite);
         treasure = null;
-        DataManager.Instance.stageTreasures[GameManager.Instance.CurrentStage][ChestNumber] = null;
+        DataManager.Instance.stageTreasures[(GameManager.Instance.CurrentStage - 1)][ChestNumber] = null;
     }
 }

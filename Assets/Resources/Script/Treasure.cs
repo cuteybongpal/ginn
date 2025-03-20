@@ -37,4 +37,9 @@ public class Treasure : StorableItem
     {
         GameManager.Instance.Add(this);
     }
+
+    public object Clone()
+    {
+        return new Treasure(this);
+    }
 }

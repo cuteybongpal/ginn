@@ -58,7 +58,7 @@ public class UI_PlayerUI : UI_Base
         {
             Treasure t = item as Treasure;
             Item item1 = item as Item; 
-            if (t == null)
+            if (t != null)
             {
                 SetInventoryImage(t.Sprite);
             }

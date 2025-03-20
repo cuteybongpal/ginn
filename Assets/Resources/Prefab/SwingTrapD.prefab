@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 5019411722469832413}
   - component: {fileID: 2882757532708500456}
   - component: {fileID: 6323189235870656288}
-  m_Layer: 6
+  m_Layer: 2
   m_Name: Blade01D
   m_TagString: Trap
   m_Icon: {fileID: 0}

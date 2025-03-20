@@ -32,4 +32,14 @@ public class Guidance : Item
         }
         Destroy(go);
     }
+    public void GameClear()
+    {
+
+    }
+    public override object Clone()
+    {
+        GameObject go = Instantiate(gameObject);
+        go.transform.position = Vector3.up * 100;
+        return go.GetComponent<Guidance>();
+    }
 }

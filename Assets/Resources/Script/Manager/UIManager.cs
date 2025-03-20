@@ -28,19 +28,23 @@ public class UIManager : MonoBehaviour
     {
 
         Popup.Push(popup);
-        Debug.Log("Çª½¬ : "+popup);
     }
     public void HidePopUp()
     {
         if (Popup.Count == 0)
-        {
-            Debug.Log("ÆË¾÷ÀÌ ¾øÀ½");
             return;
-        }
-        Debug.Log("»¤ : "+Popup.Peek());
         UI_Popup popup = Popup.Pop();
         if (popup == null)
             return;
         Destroy(popup.gameObject);
+    }
+    public UI_Popup GetCurrentPopup { 
+        get
+        {
+            if (Popup.TryPeek(out UI_Popup ui_popup))
+                return ui_popup;
+            else
+                return null;
+        }
     }
 }

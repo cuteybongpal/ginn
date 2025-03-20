@@ -11,4 +11,10 @@ public class Heal : Item
         player.CurrentHp++;
         transform.position = Vector3.up * 100;
     }
+    public override object Clone()
+    {
+        GameObject go = Instantiate(gameObject);
+        go.transform.position = Vector3.up * 100;
+        return go.GetComponent<Heal>();
+    }
 }

@@ -16,7 +16,19 @@ public class GolemController : MonoBehaviour
     Animator anim;
     public float Distance;
     public Collider AttackCollider;
-    ParticleSystem particle;
+    /// <summary>
+    /// 0 : 공격
+    /// 1 : 데미지 입음
+    /// </summary>
+    public ParticleSystem[] Particles;
+
+    public AudioClip[] Audios;
+    /// <summary>
+    /// 0 : 걷기
+    /// 1 : 공격
+    /// 2 : 데미지 입음
+    /// </summary>
+    AudioSource[] AudioSources;
     public enum MonsterState
     {
         Idle,
@@ -60,10 +72,14 @@ public class GolemController : MonoBehaviour
     }
     private void Start()
     {
+        CurrentHp = MaxHp;
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         AttackCollider.enabled = false;
-        particle = GetComponentInChildren<ParticleSystem>();
+        AudioSources = GetComponents<AudioSource>();
+        AudioSources[0].clip = Audios[0];
+        AudioSources[1].clip = Audios[1];
+        AudioSources[2].clip = Audios[2];
     }
     void Update()
     {
@@ -95,7 +111,11 @@ public class GolemController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        
+        //Debug.Log(other.tag);
+        if (!other.CompareTag("Attack"))
+            return;
+        Debug.Log("데미지 입음!");
+        Damaged(GameManager.Instance.PlayerDamage);
     }
     void Idle()
     {
@@ -125,12 +145,32 @@ public class GolemController : MonoBehaviour
     void ColliderOn()
     {
         StartCoroutine(Attacking());
-        particle.Play();
+        Particles[0].Play();
+        AudioSources[1].Play();
+    }
+    void WalkSound()
+    {
+        AudioSources[0].Play();
     }
     IEnumerator Attacking()
     {
         AttackCollider.enabled = true;
         yield return new WaitForSeconds(.3f);
         AttackCollider.enabled = false;
+    }
+    void Damaged(int damage)
+    {
+        if (CurrentHp <= 0)
+            return;
+        CurrentHp -= damage;
+        Particles[1].Play();
+        AudioSources[2].Play();
+        if (CurrentHp <= 0)
+            Die();
+
+    }
+    void Die()
+    {
+        Destroy(gameObject);
     }
 }

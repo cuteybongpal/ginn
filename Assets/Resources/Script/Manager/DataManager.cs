@@ -16,6 +16,8 @@ public class DataManager
     public List<Treasure> treasures = new List<Treasure>();
     XmlSerializer serializer = new XmlSerializer(typeof(GameData)); 
 
+    public bool[] isPuzzleCleard = new bool[5];
+
 
     public List<TreasureData> treasureDatas = new List<TreasureData>();
 
