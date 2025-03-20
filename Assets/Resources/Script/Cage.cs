@@ -45,7 +45,6 @@ public class Cage : MonoBehaviour
         {
             Vector3 pos = Vector3.Lerp(OriginPos, Targetpos, elapsedTime / duration);
             transform.position = pos;
-            Debug.Log($"{transform.position}, {pos}");
             elapsedTime += Time.deltaTime;
             
             yield return null;

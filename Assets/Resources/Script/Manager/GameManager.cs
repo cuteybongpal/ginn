@@ -44,12 +44,13 @@ public class GameManager : MonoBehaviour
             currentStage = value;
             if (value != 0)
                 GameStart();
-            Debug.Log("æ¿ ¿Ãµø");
             SceneManager.LoadSceneAsync(value, LoadSceneMode.Single);
         }
     }
     public int PlayerDamage = 1;
 
+    public int PlayerCurrentHP = 0;
+    public int PlayerCurrentOxygenGage = 0;
 
     private void Awake()
     {
@@ -68,6 +69,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         TreasureList = new List<Treasure>();
+        prevInventory = new List<StorableItem>();
         foreach (Treasure t in DataManager.Instance.stageTreasures[CurrentStage - 1])
         {
             Treasure tt;
@@ -85,14 +87,12 @@ public class GameManager : MonoBehaviour
             {
                 t = (Treasure)Inventory[i].Clone();
                 prevInventory.Add(t);
-                Debug.Log(t == null);
             }
             else
             {
                 it = (Item)Inventory[i].Clone();
                 DontDestroyOnLoad(it);
                 prevInventory.Add(it);
-                Debug.Log(it == null);
             }            
         }
     }
