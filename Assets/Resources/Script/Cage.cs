@@ -35,11 +35,11 @@ public class Cage : MonoBehaviour
     }
     IEnumerator CageOpen()
     {
-        float duration = 2f;
+        float duration = 4f;
         float elapsedTime = 0f;
 
         Vector3 OriginPos = transform.position;
-        Vector3 Targetpos = OriginPos + Vector3.down * 5;
+        Vector3 Targetpos = OriginPos + Vector3.down * 10;
         Debug.Log(gameObject.name);
         while (duration > elapsedTime)
         {

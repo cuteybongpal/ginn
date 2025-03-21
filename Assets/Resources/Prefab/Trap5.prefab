@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 5123945813334357367}
   - component: {fileID: 4020434535989725973}
   - component: {fileID: 4673065860793366555}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Trap5
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -79,6 +79,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 5395c56e03889384398da83042f0b46e, type: 3}
       propertyPath: m_Name
       value: SpearD
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 5395c56e03889384398da83042f0b46e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5395c56e03889384398da83042f0b46e, type: 3}
       propertyPath: m_LocalPosition.x

@@ -17,7 +17,7 @@ public class UI_PlayerUI : UI_Base
     Button[] buttons;
 
     public Collider AttackCollider;
-    protected override void Start()
+    protected void Awake()
     {
         base.Start();
         OxygenSlider.maxValue = GameManager.Instance.PlayerMaxOxygenGage;

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class PlayerController : MonoBehaviour
 {
     public int MaxHp;
     int currentHp;
+    public Transform ClearedPos;
     public int CurrentHp
     {
         get { return currentHp; }
@@ -23,7 +25,10 @@ public class PlayerController : MonoBehaviour
                 return;
             UI_PlayerUI ui = UIManager.Instance.CurrentMainUI as UI_PlayerUI;
             if (ui == null)
+            {
+                
                 return;
+            }
             ui.SetHPBar(currentHp);
             if (currentHp <= 0)
                 GameManager.Instance.GameOver();
@@ -47,6 +52,8 @@ public class PlayerController : MonoBehaviour
 
             if (currentOxygenGage > GameManager.Instance.PlayerMaxOxygenGage)
                 currentOxygenGage = GameManager.Instance.PlayerMaxOxygenGage;
+            else if (currentOxygenGage <= 0)
+                GameManager.Instance.GameOver();
             ui.SetOxygenGageValue(value);
         }
     }
@@ -65,6 +72,7 @@ public class PlayerController : MonoBehaviour
         Attack
     }
 
+    public static Action StageClear;
     PlayerState state = PlayerState.Idle;
     Animator anim;
     /// <summary>
@@ -104,11 +112,23 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        StageClear = stageClear;
         Time.timeScale = 1;
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
-        CurrentOxygenGage = GameManager.Instance.PlayerMaxOxygenGage;
-        CurrentHp = MaxHp;
+        
+        if (GameManager.Instance.PlayerCurrentHP != 0)
+        {
+            Debug.Log("이거 진짜에요?0"+ GameManager.Instance.PlayerCurrentHP);
+            CurrentHp = GameManager.Instance.PlayerCurrentHP;
+            CurrentOxygenGage = GameManager.Instance.PlayerCurrentOxygenGage;
+        }
+        else
+        {
+            CurrentHp = MaxHp;
+            CurrentOxygenGage = GameManager.Instance.PlayerMaxOxygenGage;
+        }
+        
         audioSources = GetComponents<AudioSource>();
         audioSources[0].clip = Clips[0];
         audioSources[1].clip = Clips[1];
@@ -117,7 +137,14 @@ public class PlayerController : MonoBehaviour
         particle = GetComponentInChildren<ParticleSystem>();
         AttackCollider.enabled = false;
         if (!isLobby)
+        {
             StartCoroutine(ReduceCurrentOxygen());
+            Vector3 pos = GameManager.Instance.clearPos[GameManager.Instance.CurrentStage - 1];
+            if (pos != null && pos != Vector3.zero)
+            {
+                transform.position = pos;
+            }
+        }
     }
 
     IEnumerator ReduceCurrentOxygen()
@@ -247,7 +274,10 @@ public class PlayerController : MonoBehaviour
             if (!(other.gameObject.layer == LayerMask.NameToLayer("Monster")))
                 return;
         }
-        Damaged();
+        else
+        {
+            Damaged();
+        }
     }
     private void OnTriggerStay(Collider other)
     {
@@ -264,5 +294,14 @@ public class PlayerController : MonoBehaviour
     void FootStep()
     {
         audioSources[0].Play();
+    }
+    void stageClear()
+    {
+        if (isLobby)
+            return;
+        Debug.Log("dadfa");
+        GameManager.Instance.clearPos[GameManager.Instance.CurrentStage - 1] = ClearedPos.position;
+        GameManager.Instance.PlayerCurrentHP = CurrentHp;
+        GameManager.Instance.PlayerCurrentOxygenGage = CurrentOxygenGage;
     }
 }

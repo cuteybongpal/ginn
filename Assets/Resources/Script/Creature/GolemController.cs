@@ -114,7 +114,6 @@ public class GolemController : MonoBehaviour
         //Debug.Log(other.tag);
         if (!other.CompareTag("Attack"))
             return;
-        Debug.Log("데미지 입음!");
         Damaged(GameManager.Instance.PlayerDamage);
     }
     void Idle()

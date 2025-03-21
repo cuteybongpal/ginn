@@ -3598,7 +3598,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 1, g: 0.5231256, b: 0.21226418, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -4597,6 +4597,8 @@ MonoBehaviour:
   MaxContainTreauseCount: 4
   PlayerMaxOxygenGage: 100
   PlayerDamage: 1
+  PlayerCurrentHP: 0
+  PlayerCurrentOxygenGage: 0
 --- !u!4 &2040407329
 Transform:
   m_ObjectHideFlags: 0

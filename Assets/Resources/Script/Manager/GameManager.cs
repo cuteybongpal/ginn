@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     public GameObject UI_Warning;
     public GameObject UI_GameOver;
 
+    public Vector3[] clearPos = new Vector3[5];
+
     int currentMoney = 0;
     public int CurrentMoney 
     {
@@ -44,6 +46,8 @@ public class GameManager : MonoBehaviour
             currentStage = value;
             if (value != 0)
                 GameStart();
+            else
+                clearPos = new Vector3[5];
             SceneManager.LoadSceneAsync(value, LoadSceneMode.Single);
         }
     }
@@ -173,5 +177,9 @@ public class GameManager : MonoBehaviour
         Inventory = prevInventory;
         Instantiate(UI_GameOver);
         Time.timeScale = 0;
+    }
+    public void StageClear()
+    {
+        PlayerController.StageClear?.Invoke();
     }
 }

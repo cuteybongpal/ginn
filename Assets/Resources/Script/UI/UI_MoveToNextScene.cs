@@ -14,6 +14,8 @@ public class UI_MoveToNextScene : UI_Popup
         text.text = Text;
         MoveToLobby.onClick.AddListener(() =>
         {
+            if (GameManager.Instance.CurrentStage < SceneNum)
+                GameManager.Instance.StageClear();
             GameManager.Instance.CurrentStage = SceneNum;
             Hide();
         });
